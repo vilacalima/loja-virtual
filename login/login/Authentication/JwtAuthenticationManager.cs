@@ -2,10 +2,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using login.Authentication;
 using Microsoft.IdentityModel.Tokens;
 
-public class JwtAuthenticationManager : IJwtAuthenticationManager
+public class JwtAuthenticationManager
 {
     private readonly string _secretKey;
 
@@ -27,12 +26,4 @@ public class JwtAuthenticationManager : IJwtAuthenticationManager
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
-    // Método para autenticar o usuário (pode ser substituído por uma consulta ao banco de dados)
-    //public bool Authenticate(string username, string password)
-    //{
-    //    // Lógica de autenticação aqui (por exemplo, verificar no banco de dados)
-    //    // Se o usuário for autenticado com sucesso, retorne true; caso contrário, retorne false.
-    //    return username == "usuario" && password == "senha"; // Exemplo simples de autenticação, NÃO utilize em produção!
-    //}
 }

@@ -6,17 +6,21 @@ namespace login.Model
     {
         [Key]
         public int Id { get; set; }
-        
+
         [Required]
-        [StringLength(10)]
-        public string UserName { get; set; }
+        [StringLength(11)]
+        public string? Name { get; set; }
+
+        [Required]
+        [StringLength(11)]
+        public string? Cpf { get; set; }
         
         [Required]
         [StringLength(70)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
         
         [Required]
         [StringLength(12)]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

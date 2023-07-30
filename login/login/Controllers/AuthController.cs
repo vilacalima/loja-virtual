@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using login.UserDTO;
+using login.DTO;
 using login.UserService;
-using login.Authentication;
 
 [ApiController]
 [Route("api/auth")]
@@ -22,16 +21,19 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Authenticate([FromBody] UserDTO user)
+    public IActionResult Authenticate([FromBody] UserDTO? user)
     {
-        if (_userService.IsValidUser(user.Email, user.Senha))
+        if(user != null)
         {
-            var jwtAuthenticationManager = new JwtAuthenticationManager(_configuration["Jwt:SecretKey"]);
-            var token = jwtAuthenticationManager.GenerateToken(user.Email);
+            if (_userService.IsValidUser(user.Email, user.Senha))
+            {
+                var jwtAuthenticationManager = new JwtAuthenticationManager(_configuration["Jwt:SecretKey"]);
+                var token = jwtAuthenticationManager.GenerateToken(user.Email);
 
-            return Ok(new { Token = token });
+                return Ok(new { Token = token });
+            }
         }
-
+        
         return Unauthorized();
     }
 }

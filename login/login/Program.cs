@@ -1,5 +1,5 @@
-using login.Authentication;
 using login.Model;
+using login.UserRepository;
 using login.UserService;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetSection("ConnectionStrings:dbconn").Value));
 
