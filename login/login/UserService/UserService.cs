@@ -1,26 +1,30 @@
 ﻿using login.Model;
+using login.UserRepository;
 using System.Text.RegularExpressions;
 
 namespace login.UserService
 {
     public class UserService : IUserService
     {
-        private readonly IUserService _userService;
+        private readonly IUserRepository _userRepository;
 
-        public UserService(IUserService userService)
+        public UserService(IUserRepository userService)
         {
-            _userService = userService;
+            _userRepository = userService;
         }
 
         public bool IsValidUser(string email, string password)
         {
-            if (email == null || password == null) { /*adicionar validação*/} 
+            if (email == null || password == null) 
+            { 
+                throw new Exception("Email ou senha incompleto"); 
+            }
 
-            //Validar email
-            //validar senha
-            //chamar banco de dados
+            var debug = _userRepository.GetUser(email, password);
 
-            return email == "usuario" && password == "senha";
+            if (debug) return true;
+
+            return false;
         }
 
         /// <summary>
@@ -51,7 +55,7 @@ namespace login.UserService
                     }
                 }
 
-                _userService.RegisterNewUser(user);
+                _userRepository.Save(user);
 
                 return Task.FromResult(true);
             } catch (Exception ex) 

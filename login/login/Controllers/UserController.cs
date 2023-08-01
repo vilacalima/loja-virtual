@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace login.Controllers
 {
     [ApiController]
-    [Route("api/auth")]
+    [Route("api/user")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

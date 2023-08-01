@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Authenticate([FromBody] UserDTO? user)
+    public IActionResult Authenticate([FromBody] AuthDTO? user)
     {
         if(user != null)
         {
